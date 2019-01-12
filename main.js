@@ -27,11 +27,26 @@ function saveIssue(e) {
         localStorage.setItem('issues', JSON.stringify(issues));
     }
 
-    document.getElementById('issueInputForm').reset();
+    $('issueInputForm').reset();
 
     fetchIssues();
 
     e.preventDefault();
+}
+
+function deleteIssue(id) {     //need to fix this!
+    var issues = JSON.parse(localStorage.getItem('issues'));
+
+    for (var i = 0; i < issues.length; i++) {
+        if (issues[i].id == id) {
+            var removeItems = JSON.parse(localStorage.removeItem('issues'));
+            issues[i].removeItems;
+        }
+    }
+
+    localStorage.setItem('issues', JSON.stringify(issues));
+
+    fetchIssues();
 }
 
 function setStatusClosed(id) {
@@ -48,6 +63,7 @@ function setStatusClosed(id) {
     fetchIssues();
 
 }
+
 
 function fetchIssues() {
     var issues = JSON.parse(localStorage.getItem('issues'))  //convert 'issues' into a JSON object
@@ -68,8 +84,8 @@ function fetchIssues() {
             '<h3>' + desc + '</h3>' +
             '<p><span class="glyphicon glyphicon-time"></span>' + severity + '</p>' +
             '<p><span class="glyphicon glyphicon-user"></span>' + assignedTo + '</p>' +
-            '<a href="#" onlick="setStatusClosed(\'' +id+'\')" class="btn btn-warning">Close</a>' +
-            '<a href="#" onlick="deleteIssue(\''+id+'\')" class="btn btn-danger">Delete</a>' +
+            '<a href="#" onclick="setStatusClosed(\'' +id+'\')" class="btn btn-warning">Close</a>' +
+            '<a href="#" onclick="deleteIssue(\''+id+'\')" class="btn btn-danger">Delete</a>' +
             '</div>';
     }
 
